@@ -12,13 +12,13 @@ const config = {
 };
 
 async function connectAndQuery() {
-    try {
-        // Tạo kết nối đến cơ sở dữ liệu
-        const pool = await sql.connect(config);
-        console.log('Connected to SQL Server');
-    } catch (err) {
-        console.error('Database Connection Failed! Bad Config: ', err);
-    }
+    // try {
+    //     // Tạo kết nối đến cơ sở dữ liệu
+    //     const pool = await sql.connect(config);
+    //     console.log('Connected to SQL Server');
+    // } catch (err) {
+    //     console.error('Database Connection Failed! Bad Config: ', err);
+    // }
 }
 
 // Gọi hàm để kiểm tra kết nối và truy vấn

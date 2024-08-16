@@ -1,7 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const userRoutes = require('./routes/roleRoutes');
+const roleRoutes = require('./routes/roleRoutes');
+
+const accountRoutes = require('./routes/acountRouter');
 
 app.use(express.json());
 
@@ -10,7 +12,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', userRoutes);
+// app.use('/role/', roleRoutes);
+
+app.use('/account/', accountRoutes);
 
 app.use((req, res, next) => {
     res.status(404).json({ message: 'Endpoint not found' });
