@@ -1,8 +1,9 @@
-const { getUserID, getUserName, getUserGmail , getUserUName, getUserRole, getCustID, getCustName, getCustGmail , getCustUName, getCustRole } = require('../models/acountModel');
+const { getUserID, getUserName, getUserGmail , getUserUName, getUserRole, getCustID, getCustName, getCustGmail , getCustUName, getCustRole, getCustPhone } = require('../models/acountModel');
 
 const getID = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getUserID(param);
         res.json(user);
     } catch (err) {
@@ -14,6 +15,7 @@ const getID = async (req, res) => {
 const getName = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getUserName(param);
         res.json(user);
     } catch (err) {
@@ -25,6 +27,7 @@ const getName = async (req, res) => {
 const getGmail = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getUserGmail(param);
         res.json(user);
     } catch (err) {
@@ -36,6 +39,7 @@ const getGmail = async (req, res) => {
 const getRole = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getUserRole(param);
         res.json(user);
     } catch (err) {
@@ -47,6 +51,7 @@ const getRole = async (req, res) => {
 const getUName = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getUserUName(param);
         res.json(user);
     } catch (err) {
@@ -60,6 +65,7 @@ const getUName = async (req, res) => {
 const getCusID = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getCustID(param);
         res.json(user);
     } catch (err) {
@@ -71,6 +77,7 @@ const getCusID = async (req, res) => {
 const getCusName = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getCustName(param);
         res.json(user);
     } catch (err) {
@@ -82,6 +89,7 @@ const getCusName = async (req, res) => {
 const getCusGmail = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getCustGmail(param);
         res.json(user);
     } catch (err) {
@@ -93,6 +101,7 @@ const getCusGmail = async (req, res) => {
 const getCusRole = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getCustRole(param);
         res.json(user);
     } catch (err) {
@@ -104,7 +113,20 @@ const getCusRole = async (req, res) => {
 const getCusUName = async (req, res) => {
     try {
         const param = req.query.pr
+        if(!param) res.json([])
         const user = await getCustUName(param);
+        res.json(user);
+    } catch (err) {
+        console.log(err)
+        res.status(500).send('Error param');
+    }
+};
+
+const getCusPhone = async (req, res) => {
+    try {
+        const param = req.query.pr
+        if(!param) res.json([])
+        const user = await getCustPhone(param);
         res.json(user);
     } catch (err) {
         console.log(err)
@@ -122,6 +144,7 @@ module.exports = {
     getCusName,
     getCusGmail,
     getCusRole,
-    getCusUName
+    getCusUName,
+    getCusPhone
 
 };

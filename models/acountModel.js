@@ -1,9 +1,13 @@
-const { poolPromise } = require('../config/dbConfig');
+const poolPromise = require('../config/dbConfig');
 
 const getUserID = async (params) => {
     try {
+        console.log(params)
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_user where [id] = ${params} and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
 
-        return "hello day la user id:" + params
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -11,8 +15,10 @@ const getUserID = async (params) => {
 
 const getUserName = async (params) => {
     try {
-
-        return "hello day la user acc:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_user where Name like '%${params}%' and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -20,7 +26,10 @@ const getUserName = async (params) => {
 
 const getUserGmail = async (params) => {
     try {
-        return "hello day la user gmail:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_user where Email like '%${params}%' and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -28,7 +37,10 @@ const getUserGmail = async (params) => {
 
 const getUserRole = async (params) => {
     try {
-        return "hello day la list user role:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_user where Roleid =${params} and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -36,7 +48,10 @@ const getUserRole = async (params) => {
 
 const getUserUName = async (params) => {
     try {
-        return "hello day la list user name =:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_user where USER_NAME like '%${params}%' and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -46,8 +61,12 @@ const getUserUName = async (params) => {
 
 const getCustID = async (params) => {
     try {
+        console.log(params)
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_customer where [id] = ${params} and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
 
-        return "hello day la customer id:" + params
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -55,8 +74,10 @@ const getCustID = async (params) => {
 
 const getCustName = async (params) => {
     try {
-
-        return "hello day la customer acc:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_customer where Name like '%${params}%' and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -64,7 +85,10 @@ const getCustName = async (params) => {
 
 const getCustGmail = async (params) => {
     try {
-        return "hello day la customer gmail:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_customer where Email like '%${params}%' and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -72,7 +96,10 @@ const getCustGmail = async (params) => {
 
 const getCustRole = async (params) => {
     try {
-        return "hello day la list customer role:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_customer where Roleid =${params} and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -80,7 +107,21 @@ const getCustRole = async (params) => {
 
 const getCustUName = async (params) => {
     try {
-        return "hello day la list customer name =:" + params
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_customer where USER_NAME like '%${params}%' and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
+    } catch (err) {
+        console.error('SQL error', err);
+    }
+};
+
+const getCustPhone = async (params) => {
+    try {
+        const pool = await poolPromise;
+        let mquery = `select * from tbl_customer where Phone like '%${params}%' and Deleted =0`
+        const result = await pool.request().query(mquery);
+        return result.recordset
     } catch (err) {
         console.error('SQL error', err);
     }
@@ -99,4 +140,5 @@ module.exports = {
     getCustGmail,
     getCustRole,
     getCustUName,
+    getCustPhone
 };
