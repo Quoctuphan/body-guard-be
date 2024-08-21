@@ -1,45 +1,28 @@
-// const sql = require('mssql');
+const { Pool } = require('pg');
 
-// const config = {
-//     user: 'SQLAdmin',
-//     password: '12345678@a',
-//     server: 'mockprojecsqlserver.database.windows.net',
-//     port: 1433, // Sử dụng port mặc định của SQL Server
-//     database: 'newbodyguardDB',
-//     options: {
-//         encrypt: true // Bắt buộc đối với Azure SQL
-//     }
-// };
-
-// async function connectAndQuery() {
-//     try {
-//         // Tạo kết nối đến cơ sở dữ liệu
-//         const pool = await sql.connect(config);
-//         console.log('Connected to SQL Server');
-//     } catch (err) {
-//         console.error('Database Connection Failed! Bad Config: ', err);
-//     }
-// }
-
-// // Gọi hàm để kiểm tra kết nối và truy vấn
-// console.log("Starting...");
-// connectAndQuery();
-
-const sql = require('mssql/msnodesqlv8');
-
+// Cấu hình kết nối PostgreSQL
 const config = {
-    user: 'sa',
-    password: '123123',
-    server: 'localhost',
-    port: 1433, // Sử dụng port mặc định của SQL Server
-    database: 'newbodyguardDB',
-    driver: 'MsNodeSqlV8'
+    user: 'bodyguard_user',
+    host: 'dpg-cr2j2c08fa8c73djui7g-a.singapore-postgres.render.com',
+    database: 'bodyguard',
+    password: 'j9BPzsKzzzI6DrqwMlGkiDyi2nrTklXJ',
+    port: 5432, // Port mặc định của PostgreSQL
+    ssl: {
+        rejectUnauthorized: false // Bỏ qua xác thực SSL nếu cần
+    }
 };
 
-const conect = new sql.ConnectionPool(config).connect()
+// Tạo Pool kết nối
+const pool = new Pool(config);
 
-// Gọi hàm để kiểm tra kết nối và truy vấn
-console.log("conected...");
+// Kiểm tra kết nối
+pool.connect()
+    .then(client => {
+        console.log('Connected to PostgreSQL');
+        client.release();
+    })
+    .catch(err => {
+        console.error('Database Connection Failed: ', err);
+    });
 
-
-module.exports = conect
+module.exports = pool;
