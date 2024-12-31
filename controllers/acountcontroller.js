@@ -1,26 +1,46 @@
-const { getUser,getUserID, getUserName , getUserUName, getUserRole, getCustID, getCustName , getCustUName , getCustomer} = require('../models/acountModel');
+const { getUser, getUserByMail, getUserID, getUserName , getUserUName, getUserRole, getCustID, getCustName , getCustUName , getCustomer} = require('../models/acountModel');
 
-const getuserall = async (req, res) => {
-    try {
-        const param = req.query.pr
-        if(!param) {
-            res.status(403).send({'error':'Missing parameter'});
-        }else{
-            let num = parseInt(param, 10);
-            if(!isNaN(num) && num.toString() === param){
-                const user = await getUser(param);
-                if(user === "error")  res.status(500).send({'error':'Something went wrong. Please try again later.'});
-                else res.json(user);
-            }else{
-                res.status(402).send({'error':'Parameter incorrect format'});
-            }
+const getUserAll = async (req, res) => {
+    try{
+            const user = await getUser();
+            return res.json(user)
         }
-       
-    } catch (err) {
+       catch (err) {
         console.log(err)
+        console.log(res)
         res.status(500).send({'error':'Something went wrong. Please try again later.'});
     }
 };
+const authUser = async (req, res) => {
+    console.log("req", req.body.email)
+    const {email, password} = req.body
+    console.log("email", email)
+    console.log("password", password)
+    const getUser = await getUserByMail(email)
+    const userData = getUser[0]
+    console.log("test",userData.password)
+    try {
+        if(userData){    
+            if(userData.password === password){
+            return res.status(200).json({
+                user: {
+                    email: userData.email,
+                    password: userData.password,
+                },
+                message: "login is successfully",
+                error: 0
+            })
+        }
+    } else {
+        return res.status(401).json({ message: 'Email hoặc mật khẩu không chính xác' });
+    }
+} catch (error) {
+        return res.status(500).json({
+            error: 1,
+            message: `${error}`
+        })
+    }
+}
 
 
 
@@ -184,7 +204,7 @@ const getcustomerall = async (req, res) => {
 
 
 module.exports = {
-    getuserall,
+    getUserAll,
     getID,
     getName,
     getRole,
@@ -192,5 +212,6 @@ module.exports = {
     getCusID,
     getCusName,
     getCusUName,
-    getcustomerall
+    getcustomerall,
+    authUser
 };

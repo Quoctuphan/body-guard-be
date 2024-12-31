@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const {getuserall, getID, getName, getRole, getUName, getCusID, getCusName, getCusUName, getcustomerall} = require('../controllers/acountcontroller');
+const {getUserAll, authUser, getID, getName, getRole, getUName, getCusID, getCusName, getCusUName, getcustomerall} = require('../controllers/acountcontroller');
 
 
-router.get('/api/user/all', getuserall);
+
+router.get('/api/user/all', getUserAll);
+router.post('/api/user/auth', authUser)
 router.get('/api/user/id', getID);
 router.get('/api/user/name', getName);
 router.get('/api/user/role', getRole);
